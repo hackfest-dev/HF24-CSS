@@ -2,8 +2,26 @@ from flask import Flask, redirect, url_for, session,request,render_template
 from google.oauth2.service_account import Credentials
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
 from flask_oauthlib.client import OAuth
+import openai
+import pandas as pd
+from youtube_transcript_api import YouTubeTranscriptApi
+import sys
 
-import requests
+
+#function to create transcripts
+def transcripting(url):
+    # video_id = url.lstrip("https://www.youtube.com/watch?v=")
+    video_id = url[32:]
+    a = YouTubeTranscriptApi.get_transcript(video_id)
+    df = pd.DataFrame(a)
+    df = df.drop(["start", "duration"], axis=1)
+    c = df.values.tolist()
+    listToStr = ""
+    for elem in c:
+        for e in elem:
+            # print(e)
+            listToStr = listToStr + " " + e
+    return listToStr
 
 
  
@@ -104,6 +122,55 @@ def authorized():
 @google.tokengetter
 def get_google_oauth_token():
     return session.get('google_token')
+
+@app.route('/genquiz')
+def genquiz():
+    openai.organization = "org-VevTxB4XogkXjsvslr60Xacl"
+    openai.api_key = "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"
+
+    text = transcripting(
+    # sys.argv[1]
+    "https://www.youtube.com/watch?v=ad79nYk2keg"
+    )  # https://www.youtube.com/watch?v=rRXaTyVzHz8
+
+    with open("t.txt", "w") as sys.stdout:
+        print(text)
+    cont = []
+    cont.append(text[:10000])
+    prompt = (
+        """Generate five multiple choice question in the following form but with specific content: What is the capital of France?
+        A) Berlin
+        B) Rome 
+        C) Paris 
+        D) Amsterdam
+        correct answer is: Paris" using the content 
+
+    """
+        + cont[0]
+    )
+    # print(prompt)
+    model = "gpt-3.5-turbo-instruct"  # "gpt-3.5-turbo"
+    # response = openai.ChatCompletion.create(engine=model,prompt=prompt,max_tokens=500)
+    response = openai.Completion.create(engine=model, prompt=prompt, max_tokens=500)
+
+    generated_text = response.choices[0].text
+    with open("p.txt", "w") as sys.stdout:
+        print(prompt)
+    with open("z.txt", "w") as sys.stdout:
+        print(generated_text)
+
+    with open("z.txt", "r+") as fp:
+        # read an store all lines into list
+        lines = fp.readlines()
+        # move file pointer to the beginning of a file
+        fp.seek(0)
+        # truncate the file
+        fp.truncate()
+
+        # start writing lines except the first line
+        # lines[1:] from line 2 to last line
+        fp.writelines(lines[2:])
+
 
 # main driver function
 if __name__ == '__main__':
