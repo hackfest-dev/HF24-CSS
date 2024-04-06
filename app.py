@@ -133,7 +133,7 @@ def login():
 
 @app.route('/authorized')
 def authorized():
-    # try:
+    try:
         response = google.authorized_response()
         print('\n\n')
         print(response)
@@ -335,6 +335,15 @@ def parse_quiz(quiz_responses):
 @app.route('/watch')
 def watch():
     return render_template('watch.html')
+
+
+@app.route('/landing_prof')
+def landing_prof():
+    return render_template('landing_prof.html')
+
+@app.route('/landing_stud')
+def landing_stud():
+    return render_template('landing_stud.html')
 
 #NOTES setup
 
