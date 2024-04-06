@@ -15,11 +15,19 @@
     <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Additional CSS Files -->
+<<<<<<< Updated upstream
     <!-- <link rel="stylesheet" href="assets/css/fontawesome.css"> -->
     <link rel="stylesheet" href="assets/css/templatemo-grad-school.css">
     <!-- <link rel="stylesheet" href="assets/css/owl.css">
     <link rel="stylesheet" href="assets/css/lightbox.css"> -->
     <link rel="stylesheet" href="quiz.css">
+=======
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/fontawesome.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/templatemo-grad-school.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/owl.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/lightbox.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/quiz.css') }}">
+>>>>>>> Stashed changes
 <!--
     
 TemplateMo 557 Grad School
@@ -56,7 +64,7 @@ https://templatemo.com/tm-557-grad-school
       </ul>
     </nav>
   </header>
-  <div class="quiz-container" style="text-align: center;" id="quiz">
+  <form id="quiz-form" class="quiz-container" style="text-align: center;" id="quiz">
     <div class="quiz-header">
         <h2 id="question">Question text</h2>
         <ul>
@@ -78,8 +86,9 @@ https://templatemo.com/tm-557-grad-school
             </li>
         </ul>
     </div>
-    <button id="submit">Submit</button>
-</div>
+    <button type="submit" id="submit">Submit</button>
+</form>
+
 
 
   <footer>

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 1) What is the name of the software used to create subtitles for videos?
 A) Scriptify
 B) Descript
@@ -27,3 +28,34 @@ A) The subtitles are generated from the audio of the video
 B) The subtitles are typed manually by the user
 C) The subtitles can only be added to YouTube videos
 D) The subtitles are automatically synced with the video.
+=======
+1) What is one task that a weak AI is best suited for?
+A) Providing emotional support
+B) Driving a car
+C) Playing a specific game
+D) Cooking a meal
+
+2) What type of AI is most commonly used in our daily lives?
+A) Weak AI
+B) Strong AI
+C) Machines with AI implants
+D) Fictional AI
+
+3) What is the ultimate goal of AI development according to futurist Ray Kurzweil?
+A) Creating robots with citizenship
+B) Enhancing the human mind and body with AI
+C) Building a muscular skeletal system for robots
+D) Developing AI that can read human emotions
+
+4) How is deep learning different from machine learning?
+A) Deep learning is a subset of machine learning
+B) Machine learning is inspired by the human brain
+C) Deep learning uses complex algorithms for learning
+D) Machine learning can develop emotions over time
+
+5) Which of the following statements is TRUE about AI projects?
+A) All AI projects have citizenship
+B) AI projects cannot read human emotions
+C) AI projects can only perform one task
+D) Some AI projects have the potential to develop emotions over time.
+>>>>>>> Stashed changes

@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, session,request,render_template
+from flask import Flask, redirect, url_for, session,request,render_template,  render_template_string
 from google.oauth2.service_account import Credentials
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
 from flask_oauthlib.client import OAuth
@@ -6,6 +6,7 @@ import openai
 import pandas as pd
 from youtube_transcript_api import YouTubeTranscriptApi
 import sys
+from regex import re
 
 
 #function to create transcripts
@@ -217,6 +218,8 @@ def genquiz(video_link):
     with open("z.txt", "w") as sys.stdout:
         print(generated_text)
         
+
+
     with open("z.txt", "r+") as fp:
         # read an store all lines into list
         lines = fp.readlines()
@@ -228,7 +231,51 @@ def genquiz(video_link):
         # start writing lines except the first line
         # lines[1:] from line 2 to last line
         fp.writelines(lines[2:])
+        parse_quiz(generated_text)
         return generated_text
+    
+
+def parse_quiz(quiz_responses):
+    quiz_data = []
+    current_question = None
+    current_options = None
+    for line in quiz_responses.split('\n'):
+        line = line.strip()
+        if line:
+            if re.match(r'\d+\.', line):
+                if current_question and current_options:
+                    quiz_data.append({'question': current_question, 'options': current_options, 'answer': current_answer})
+                current_question = line[line.find('.')+2:line.find('?')+1]
+                current_options = []
+            elif "correct answer is:" in line:
+                current_answer = line.split(":")[1].strip()
+            else:
+                if current_question:
+                    current_options.append(line.split(") ")[1].strip())
+
+# Append the last question after the loop
+    quiz_data.append({'question': current_question, 'options': current_options, 'answer': current_answer})
+    return quiz_data
+    
+
+# @app.route('/', methods=['POST'])
+# def quiz():
+#     if request.method == 'POST':
+#         # Handle form submission
+#         # Retrieve selected answers and process them
+#         selected_answers = {}
+#         for key, value in request.form.items():
+#             if key != 'submit':
+#                 selected_answers[key] = value
+#         # Process selected answers here
+#         return "Answers submitted successfully!"
+
+#     else:
+#         # Parse the quiz responses and generate quiz form
+#         quiz_data = parse_quiz(quiz_responses)
+#         return render_template_string('quiz.html', quiz_data=quiz_data)
+
+
 
 # main driver function
 if __name__ == '__main__':
