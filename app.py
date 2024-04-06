@@ -165,7 +165,8 @@ def authorized():
             # return redirect(url_for('adminpage'))
         else:
             return render_template('unautho.html')
-
+    except Exception as e:
+        return "error"
 
         # Store user information as needed (e.g., in a database)
         # Example: email = user_info.data['email']
