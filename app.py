@@ -121,7 +121,7 @@ def authorized_stud():
         # Example: email = user_info.data['email']
     
     except Exception as e:
-        return 'error breh'
+        return 'error '
 
 
 
@@ -162,13 +162,17 @@ def authorized():
         # Store user information as needed (e.g., in a database)
         # Example: email = user_info.data['email']
     
-    # except Exception as e:
-        # return 'error breh'
+    except Exception as e:
+        return 'error'
 
 
 @google.tokengetter
 def get_google_oauth_token():
     return session.get('google_token')
+
+@app.route('/videolinkq')
+def videolinkq():
+    return render_template('video_link.html')
 
 @app.route('/video_link_page', methods=['POST'])
 def video_link_page():
