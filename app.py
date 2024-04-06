@@ -107,10 +107,10 @@ def authorized():
         if email in ALLOWED_EMAILS:
             user = User(1, email)  # Create a user object with a unique ID
             login_user(user)
-            return "success"
+            return render_template('succ.html')
             # return redirect(url_for('adminpage'))
         else:
-            return 'Unauthorized'
+            return render_template('unautho.html')
 
 
         # Store user information as needed (e.g., in a database)
@@ -172,7 +172,6 @@ def genquiz(video_link):
     with open("z.txt", "w") as sys.stdout:
         print(generated_text)
         
-
     with open("z.txt", "r+") as fp:
         # read an store all lines into list
         lines = fp.readlines()
@@ -186,10 +185,9 @@ def genquiz(video_link):
         fp.writelines(lines[2:])
         return generated_text
 
-
 # main driver function
 if __name__ == '__main__':
- 
     # run() method of Flask class runs the application 
     # on the local development server.
     app.run(debug=True)
+
