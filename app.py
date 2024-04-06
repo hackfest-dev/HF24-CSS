@@ -74,7 +74,7 @@ def logout():
 # the associated function.
 @app.route('/')
 def index():
-    return 'Hello World'
+    return render_template('video_link.html')
  
 
 @app.route('/signin')
@@ -123,15 +123,28 @@ def authorized():
 def get_google_oauth_token():
     return session.get('google_token')
 
+@app.route('/video_link_page', methods=['POST'])
+def video_link_page():
+    if request.method == 'POST':
+        video_link = request.form.get('name')
+        if video_link is not None:
+            result = genquiz(video_link)
+            return render_template('quiz.html', value=result)
+        # to generate transcript and quiz
+    return render_template('video_link.html')
+
+
 @app.route('/genquiz')
-def genquiz():
+def genquiz(video_link):
     openai.organization = "org-VevTxB4XogkXjsvslr60Xacl"
     openai.api_key = "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"
 
     text = transcripting(
+        video_link
+        ) 
     # sys.argv[1]
-    "https://www.youtube.com/watch?v=ad79nYk2keg"
-    )  # https://www.youtube.com/watch?v=rRXaTyVzHz8
+    # "https://www.youtube.com/watch?v=ad79nYk2keg"
+     # https://www.youtube.com/watch?v=rRXaTyVzHz8
 
     with open("t.txt", "w") as sys.stdout:
         print(text)
@@ -143,7 +156,7 @@ def genquiz():
         B) Rome 
         C) Paris 
         D) Amsterdam
-        correct answer is: Paris" using the content 
+        correct answer is: option C using the content 
 
     """
         + cont[0]
@@ -158,6 +171,7 @@ def genquiz():
         print(prompt)
     with open("z.txt", "w") as sys.stdout:
         print(generated_text)
+        
 
     with open("z.txt", "r+") as fp:
         # read an store all lines into list
@@ -170,6 +184,7 @@ def genquiz():
         # start writing lines except the first line
         # lines[1:] from line 2 to last line
         fp.writelines(lines[2:])
+        return generated_text
 
 
 # main driver function
