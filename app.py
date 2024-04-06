@@ -1,13 +1,12 @@
 from flask import Flask, redirect, url_for, session,request,render_template,  render_template_string
-from google.oauth2.service_account import Credentials
+# from google.oauth2.service_account import Credentials
 from flask_login import LoginManager, UserMixin, login_user, login_required, current_user, logout_user
 from flask_oauthlib.client import OAuth
 import openai
 import pandas as pd
 from youtube_transcript_api import YouTubeTranscriptApi
 import sys
-from regex import re
-
+import re
 
 #function to create transcripts
 def transcripting(url):
@@ -31,7 +30,7 @@ def transcripting(url):
 app = Flask(__name__)
 app.secret_key = '21313' 
 ALLOWED_EMAILS_PROF = {'shaddycv@gmail.com', ''} #admin access email ids
-ALLOWED_EMAILS_STUD = {'shraavyaasr@gmail.com', 'shravyabahha@gmail.com'}
+ALLOWED_EMAILS_STUD = {'shraavyaasr@gmail.com', 'shravyabahha@gmail.com','shravyakaranth64715@gmail.com','dummy861801@gmail.com'}
 oauth = OAuth(app)
 login_manager = LoginManager(app)
 login_manager.init_app(app)
@@ -94,14 +93,13 @@ def authorized_stud():
         response = google.authorized_response()
         print('\n\n')
         print(response)
-        print('\n\n')
+        print('\n\n')       
         
         if response is None or response.get('access_token') is None:
             return 'Access denied: reason={} error={}'.format(
                 request.args['error_reason'],
                 request.args['error_description']
             )
-        
         session['google_token'] = (response['access_token'], '')
         user_info = google.get('userinfo')
 
@@ -132,7 +130,7 @@ def login():
 
 @app.route('/authorized')
 def authorized():
-    try:
+    # try:
         response = google.authorized_response()
         print('\n\n')
         print(response)
@@ -161,8 +159,8 @@ def authorized():
         # Store user information as needed (e.g., in a database)
         # Example: email = user_info.data['email']
     
-    except Exception as e:
-        return 'error breh'
+    # except Exception as e:
+        # return 'error breh'
 
 
 @google.tokengetter

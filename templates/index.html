@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header class="header">
+        <h1 class="header-text">Missed Lecture</h1>
+    </header>
+    <main class="main-conatiner">
+        <div class="vidio-conatiner" style=" margin-left: 180px;">
+            <video width="1300" controls="true" poster="" id="video"autoplay controls="false" >
+                <source type="video/mp4" src="ml.mp4" >
+                </source>
+            </video>
+        </div>
+        
+        
+    </main>
+    <br>
+    <footer class="footer" style="margin-left: 180px; margin-right: 205px;">
+        <div class="play-status-conatiner">
+            <div id="status" class="incomplete">
+                <span class="play-status-text">Play status: </span>
+                <span class="status complete">COMPLETE</span>
+                <span class="status incomplete">INCOMPLETE</span>
+            </div>
+            <div>
+                <span id="played">0</span> seconds out of
+                <span id="duration"></span> seconds. (only updates when the video pauses)
+            </div>
+        </div>
+        <div class="footer-btn">
+            <button   onclick="window.location.href='missedquiz.html';" >Generate-Quiz </button>
+        </div>
+    </footer>
+</body>
+<script src="index.js"></script>
+<!-- <script>
+    video.addEventListener('play', () => {
+        
+        video.removeAttribute('controls');
+    });
+
+    video.addEventListener('pause', () => {
+        video.setAttribute('controls', 'false');
+    });
+</script> -->
