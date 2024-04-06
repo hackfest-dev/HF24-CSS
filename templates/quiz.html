@@ -12,22 +12,13 @@
     <title></title>
     <script src="quiz.js"></script>
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/stylesheets/bootstrap.min.css" rel="stylesheet">
 
     <!-- Additional CSS Files -->
-<<<<<<< Updated upstream
-    <!-- <link rel="stylesheet" href="assets/css/fontawesome.css"> -->
-    <link rel="stylesheet" href="assets/css/templatemo-grad-school.css">
-    <!-- <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/lightbox.css"> -->
-    <link rel="stylesheet" href="quiz.css">
-=======
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/fontawesome.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/templatemo-grad-school.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static',filename='css/owl.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename='stylesheets/templatemo-grad-school.css') }}">
+
     <link rel="stylesheet" href="{{ url_for('static',filename='css/lightbox.css') }}">
     <link rel="stylesheet" href="{{ url_for('static',filename='css/quiz.css') }}">
->>>>>>> Stashed changes
 <!--
     
 TemplateMo 557 Grad School
@@ -71,6 +62,7 @@ https://templatemo.com/tm-557-grad-school
     </nav>
   </header>
 
+<<<<<<< HEAD
   <form id="quiz-form" class="quiz-container" style="text-align: center;" id="quiz">
     <div class="quiz-header">
         <h2 id="question">Question text</h2>
@@ -95,6 +87,30 @@ https://templatemo.com/tm-557-grad-school
     </div>
     <button type="submit" id="submit">Submit</button>
 </form>
+=======
+  {% if quiz_data %}
+      <form id="quiz-form" action="/" method="POST">
+        {% for question_num, question_data in quiz_data.items() %}
+        <div class="quiz-container" style="text-align: center;">
+            <div class="quiz-header">
+                <ul>
+                    {% for option_key, option_text in question_data['options'].items() %}
+                    <li>
+                        <input type="radio" id="{{ question_num }}_{{ option_key }}" name="{{ question_num }}" class="answer" value="{{ option_key }}" />
+                        <label for="{{ question_num }}_{{ option_key }}">{{ option_key }}) {{ option_text }}</label>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        {% endfor %}
+        <button type="submit" id="submit">Submit</button>
+    </form>
+{% else %}
+    <p>No quiz available.</p>
+{% endif %}
+
+>>>>>>> 4f4d99ca8fff5f7162fb3a8ab4110aafd66b1572
 
 
 

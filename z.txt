@@ -1,0 +1,32 @@
+<<<<<<< HEAD
+1) Which of the following is NOT a characteristic of artificial intelligence?
+A) Intuitive decision-making
+B) Human-like intelligence
+C) Mathematical functions
+D) Adaptability
+
+2) What is the purpose of incorporating artificial intelligence into machines?
+A) To make humans obsolete
+B) To perform tasks more efficiently
+C) To create lifelike robots
+D) To replace human decision-making
+
+3) What is the main difference between weak AI and strong AI?
+A) Strong AI is only used for one specific task.
+B) Weak AI is self-aware and can develop emotions.
+C) Strong AI is limited in its capabilities.
+D) Weak AI can learn and adapt to new situations.
+
+4) Which is NOT a category of AI?
+A) Machine learning
+B) Deep learning
+C) Natural language processing
+D) Virtual reality
+
+5) Which of the following scenarios is an example of generalized learning in an AI robot?
+A) A robot that can play different games equally well.
+B) A robot that can recognize and respond to human emotions.
+C) A robot that automatically adapts to different environmental conditions.
+D) A robot that can solve complex mathematical problems.
+=======
+>>>>>>> 5d927f0757a7d654abeb9828f8f338818dbae3e4
