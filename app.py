@@ -7,6 +7,7 @@ import pandas as pd
 from youtube_transcript_api import YouTubeTranscriptApi
 import sys
 import re
+
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from pytube import YouTube 
@@ -78,6 +79,13 @@ def logout():
 # the associated function.
 @app.route('/')
 def index():
+    # return render_template('landing.html')
+    return render_template('landing.html')
+
+@app.route('/videolink')
+def videolink():
+    # return render_template('landing.html')
+    return render_template('video_link.html')
     return render_template('landing.html')
  
 
@@ -162,8 +170,6 @@ def authorized():
         # Store user information as needed (e.g., in a database)
         # Example: email = user_info.data['email']
     
-    except Exception as e:
-        return 'error'
 
 
 @google.tokengetter
@@ -178,9 +184,10 @@ def videolinkq():
 def video_link_page():
     if request.method == 'POST':
         video_link = request.form.get('name')
+        # print(video_link)
         if video_link is not None:
             result = genquiz(video_link)
-            return render_template('quiz.html', value=result)
+            return result #render_template('quiz.html', result=result)
         # to generate transcript and quiz
     return render_template('video_link.html')
 
@@ -264,7 +271,7 @@ def genquiz(video_link):
     """
         + cont[0]
     )
-    # print(prompt)
+
     model = "gpt-3.5-turbo-instruct"  # "gpt-3.5-turbo"
     # response = openai.ChatCompletion.create(engine=model,prompt=prompt,max_tokens=500)
     response = openai.Completion.create(engine=model, prompt=prompt, max_tokens=500)
@@ -272,10 +279,8 @@ def genquiz(video_link):
     generated_text = response.choices[0].text
     with open("p.txt", "w") as sys.stdout:
         print(prompt)
-    with open("z.txt", "w") as sys.stdout:
+    with open("z.txt", "w") as sys.stdout:    
         print(generated_text)
-        
-
 
     with open("z.txt", "r+") as fp:
         # read an store all lines into list
@@ -288,49 +293,42 @@ def genquiz(video_link):
         # start writing lines except the first line
         # lines[1:] from line 2 to last line
         fp.writelines(lines[2:])
-        parse_quiz(generated_text)
-        return generated_text
+
+    with open("z.txt", "r") as file:
+        quiz_text = file.read()
+
+    parsed_data = parse_quiz(quiz_text)
+    
+    # Render a template with the text content
+    return render_template('quiz.html', quiz_data=parsed_data)
     
 
 def parse_quiz(quiz_responses):
-    quiz_data = []
-    current_question = None
-    current_options = None
-    for line in quiz_responses.split('\n'):
-        line = line.strip()
-        if line:
-            if re.match(r'\d+\.', line):
-                if current_question and current_options:
-                    quiz_data.append({'question': current_question, 'options': current_options, 'answer': current_answer})
-                current_question = line[line.find('.')+2:line.find('?')+1]
-                current_options = []
-            elif "correct answer is:" in line:
-                current_answer = line.split(":")[1].strip()
-            else:
-                if current_question:
-                    current_options.append(line.split(") ")[1].strip())
+    questions = {}
 
-# Append the last question after the loop
-    quiz_data.append({'question': current_question, 'options': current_options, 'answer': current_answer})
-    return quiz_data
-    
+    # Split the string by numbering to separate each question
+    question_list = quiz_responses.split('\n\n')
+    # print(question_list)
+    question_num = 0
+    for q in question_list:
+        q_parts = q.split('\n')
+        if len(q_parts) > 1:
+            question_num +=1
+            question_text = q_parts[1].split('correct answer is:')[0].strip()
+            
+            options = {}
+            for part in q_parts[2:]:
+                option_parts = part.split(')')
+                if len(option_parts) > 1:
+                    option_key = option_parts[0].strip()
+                    option_value = option_parts[1].strip()
+                    options[option_key] = option_value
 
-# @app.route('/', methods=['POST'])
-# def quiz():
-#     if request.method == 'POST':
-#         # Handle form submission
-#         # Retrieve selected answers and process them
-#         selected_answers = {}
-#         for key, value in request.form.items():
-#             if key != 'submit':
-#                 selected_answers[key] = value
-#         # Process selected answers here
-#         return "Answers submitted successfully!"
+            correct_answer = q_parts[-1].strip()
+            # print(correct_answer)
+            questions[question_num] = {'question': question_text, 'options': options, 'correct_answer': correct_answer}
 
-#     else:
-#         # Parse the quiz responses and generate quiz form
-#         quiz_data = parse_quiz(quiz_responses)
-#         return render_template_string('quiz.html', quiz_data=quiz_data)
+    return questions
 
 @app.route('/watch')
 def watch():
