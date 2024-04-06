@@ -24,33 +24,40 @@
   <!--header-->
   <header class="main-header clearfix" role="header">
     <div class="logo">
-      <a href="#"><em>Inte</em>llex</a>
+      <a href="#">INTE<em>LLEX</em></a>
     </div>
     <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
     <nav id="menu" class="main-nav" role="navigation">
       <ul class="main-menu">
         <li><a href="#section1">Home</a></li>
-        <li class="has-submenu"><a href="#section2">About Us</a>
+        <li class="has-submenu"><a href="#section2">---</a>
           <ul class="sub-menu">
-            <li><a href="#section2">Who we are?</a></li>
-            <li><a href="#section3">What we do?</a></li>
-            <li><a href="#section3">How it works?</a></li>
-            <li><a href="https://templatemo.com/about" rel="sponsored" class="external">External URL</a></li>
+            <li><a href="#section2">-</a></li>
+            <li><a href="#section3">-</a></li>
+            <li><a href="#section3"class="external">-</a></li>
           </ul>
         </li>
-        <li><a href="#section4">Courses</a></li>
+        <li><a href="{{url_for('videolinkq')}}">MCQs</a>
+          
+        </li>
         <!-- <li><a href="#section5">Video</a></li> -->
-        <li><a href="#section6">Contact</a></li>
-        <li><a href="https://templatemo.com" class="external">External</a></li>
+        <li class="has-submenu"><a class="external">Login</a>
+          <ul class="sub-menu">
+            <li><a href="{{url_for('login')}}">Professor</a></li>
+            <li><a href="{{url_for('login_stud')}}">Student</a></li>
+          </ul>
+        </li>
+        <li><a href="takeattendance.html" class="external">Attendance</a></li>
       </ul>
     </nav>
   </header>
+
   <div class="container" style="width: 100%;
   overflow: hidden;">
     <img src="../static/images/succ.png" alt="Image" class="image" style="margin-top: 5rem; margin-left: 10rem; height: 37rem; width: auto; float: left; margin-right: 20px;">
     <p style="margin-top: 25%; color: rgb(22, 142, 60); font-size: xx-large; font-family: Lucida Console;"><strong>Sign In Successful!!</strong></p>
     <p style="margin-left: 35%; font-size: medium; font-family: Lucida Console;">You're an allowed user, you can access further options.</p>
-    <form action = "{{url_for('login')}}">
+    <form action = "{{url_for('videolinkq')}}">
       <button style="margin-left: 10%;" >
           Home
       </button>
