@@ -55,7 +55,12 @@ https://templatemo.com/tm-557-grad-school
     <img src="../static/images/unautho.png" alt="Image" class="image" style="margin-top: 5rem; margin-left: 10rem; height: 37rem; width: auto; float: left; margin-right: 20px;">
     <p style="margin-top: 25%; color: red; font-size: xx-large; font-family: Lucida Console;"><strong>Unauthorized??</strong></p>
     <p style="margin-left: 35%; font-size: medium; font-family: Lucida Console;">You're not an allowed user, so you can't proceed.    </p>
-    <button style="margin-left: 10%;">Home</button>
+    <!-- <button type="submit" onclick="">Try Again</button> -->
+    <form action = "{{url_for('login')}}">
+      <button style="margin-left: 10%;" >
+          Try Again
+      </button>
+  </form>
 </div>
 
 

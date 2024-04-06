@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 1) Which of the following is NOT a characteristic of artificial intelligence?
 A) Intuitive decision-making
 B) Human-like intelligence
@@ -27,3 +28,5 @@ A) A robot that can play different games equally well.
 B) A robot that can recognize and respond to human emotions.
 C) A robot that automatically adapts to different environmental conditions.
 D) A robot that can solve complex mathematical problems.
+=======
+>>>>>>> 5d927f0757a7d654abeb9828f8f338818dbae3e4
