@@ -9,16 +9,16 @@
     <meta name="author" content="">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
 
-    <title>SMVITM</title>
+    <title>INTELLEX</title>
     
     <!-- Bootstrap core CSS -->
-    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/stylesheets/bootstrap.min.css" rel="stylesheet">
 
     <!-- Additional CSS Files -->
-    <link rel="stylesheet" href="assets/css/fontawesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-grad-school.css">
-    <link rel="stylesheet" href="assets/css/owl.css">
-    <link rel="stylesheet" href="assets/css/lightbox.css">
+    <!-- <link rel="stylesheet" href="assets/css/fontawesome.css"> -->
+    <link rel="stylesheet" href="../static/stylesheets/templatemo-grad-school.css">
+    <!-- <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/lightbox.css"> -->
 <!--
     
 TemplateMo 557 Grad School
@@ -34,7 +34,7 @@ https://templatemo.com/tm-557-grad-school
   <!--header-->
   <header class="main-header clearfix" role="header">
     <div class="logo">
-      <a href="#"><em>SMVITM</em></a>
+      <a href="#">INTE<em>LLEX</em></a>
     </div>
     <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
     <nav id="menu" class="main-nav" role="navigation">
@@ -48,9 +48,16 @@ https://templatemo.com/tm-557-grad-school
             <li><a href="https://templatemo.com/about" rel="sponsored" class="external">External URL</a></li>
           </ul>
         </li>
-        <li><a href="#section4">Courses</a></li>
+        <li><a href="#section4">Courses</a>
+          
+        </li>
         <!-- <li><a href="#section5">Video</a></li> -->
-        <li><a href="login.html" class="external">Login</a></li>
+        <li class="has-submenu"><a class="external">Login</a>
+          <ul class="sub-menu">
+            <li><a href="{{url_for('login')}}">Professor</a></li>
+            <li><a href="{{url_for('login_stud')}}">Student</a></li>
+          </ul>
+        </li>
         <li><a href="takeattendance.html" class="external">Take Attendance</a></li>
       </ul>
     </nav>

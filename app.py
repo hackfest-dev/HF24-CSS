@@ -29,7 +29,8 @@ def transcripting(url):
 # current module (__name__) as argument.
 app = Flask(__name__)
 app.secret_key = '21313' 
-ALLOWED_EMAILS = {'shaddycv@gmail.com', ''} #admin access email ids
+ALLOWED_EMAILS_PROF = {'shaddycv@gmail.com', ''} #admin access email ids
+ALLOWED_EMAILS_STUD = {'shraavyaasr@gmail.com', 'shravyabahha@gmail.com'}
 oauth = OAuth(app)
 login_manager = LoginManager(app)
 login_manager.init_app(app)
@@ -74,12 +75,55 @@ def logout():
 # the associated function.
 @app.route('/')
 def index():
-    return render_template('video_link.html')
+    return render_template('landing.html')
  
 
 @app.route('/signin')
 def signin():
     return "hi"
+
+@app.route('/login_stud')
+def login_stud():
+    return google.authorize(callback=url_for('authorized_stud', _external=True))
+
+
+@app.route('/authorized_stud')
+def authorized_stud():
+    try:
+        response = google.authorized_response()
+        print('\n\n')
+        print(response)
+        print('\n\n')
+        
+        if response is None or response.get('access_token') is None:
+            return 'Access denied: reason={} error={}'.format(
+                request.args['error_reason'],
+                request.args['error_description']
+            )
+        
+        session['google_token'] = (response['access_token'], '')
+        user_info = google.get('userinfo')
+
+        email = user_info.data.get('email')
+
+        if email in ALLOWED_EMAILS_STUD:
+            user = User(1, email)  # Create a user object with a unique ID
+            login_user(user)
+            return render_template('succ_stud.html')
+            # return redirect(url_for('adminpage'))
+        else:
+            return render_template('unautho.html')
+
+
+        # Store user information as needed (e.g., in a database)
+        # Example: email = user_info.data['email']
+    
+    except Exception as e:
+        return 'error breh'
+
+
+
+
 @app.route('/login')
 def login():
     return google.authorize(callback=url_for('authorized', _external=True))
@@ -104,10 +148,10 @@ def authorized():
 
         email = user_info.data.get('email')
 
-        if email in ALLOWED_EMAILS:
+        if email in ALLOWED_EMAILS_PROF:
             user = User(1, email)  # Create a user object with a unique ID
             login_user(user)
-            return render_template('succ.html')
+            return render_template('succ_prof.html')
             # return redirect(url_for('adminpage'))
         else:
             return render_template('unautho.html')
@@ -117,7 +161,8 @@ def authorized():
         # Example: email = user_info.data['email']
     
     except Exception as e:
-        return render_template("error.html")
+        return 'error breh'
+
 
 @google.tokengetter
 def get_google_oauth_token():
