@@ -7,6 +7,9 @@ import pandas as pd
 from youtube_transcript_api import YouTubeTranscriptApi
 import sys
 import re
+from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime
+from pytube import YouTube 
 
 #function to create transcripts
 def transcripting(url):
@@ -178,6 +181,7 @@ def video_link_page():
     return render_template('video_link.html')
 
 video_link = 'https://www.youtube.com/watch?v=NWONeJKn6kc'
+
 @app.route('/gennotes')
 
 def gennotes():
@@ -196,7 +200,7 @@ def gennotes():
     cont = []
     cont.append(text[:10000])
     prompt = (
-        """Generate the full notes without summarizing which can be uses the important topics in the transcript so that students can learn easily. 
+        """Generate the full notes without summarizing it.Make it with points and headings. It should also contain explanation or description of the points.
 
     """
         + cont[0]
@@ -223,7 +227,7 @@ def gennotes():
         # start writing lines except the first line
         # lines[1:] from line 2 to last line
         fp.writelines(lines[2:])
-        parse_quiz(generated_text)
+        # parse_quiz(generated_text)
         return generated_text
     
 
@@ -244,6 +248,7 @@ def genquiz(video_link):
         print(text)
     cont = []
     cont.append(text[:10000])
+
     prompt = (
         """Generate five multiple choice question in the following form but with specific content: What is the capital of France?
         A) Berlin
@@ -323,11 +328,72 @@ def parse_quiz(quiz_responses):
 #         quiz_data = parse_quiz(quiz_responses)
 #         return render_template_string('quiz.html', quiz_data=quiz_data)
 
+@app.route('/watch')
+def watch():
+    return render_template('watch.html')
+
+#NOTES setup
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///notes.db'
+db = SQLAlchemy(app)
+
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    created = db.Column(db.DateTime, default=datetime.now)
+
+    def __repr__(self):
+        return f"Note('{self.title}', '{self.created}')"
+
+
+# @app.route('/notebook', methods=['GET', 'POST'])
+# def notebook():
+#     if request.method == 'POST':
+#         note_title = request.form['title']
+#         note_content = request.form['content']
+
+#         if note_title.strip() and note_content.strip():
+#             new_note = Note(title=note_title, content=note_content)
+#             db.session.add(new_note)
+#             db.session.commit()
+
+#         return redirect(url_for('notebook'))
+
+#     notes = Note.query.order_by(Note.created.desc()).all()
+#     return render_template('notes.html', notes=notes)
+
+@app.route('/delete/<int:note_id>', methods=['POST'])
+def delete_note(note_id):
+    note = Note.query.get_or_404(note_id)
+    db.session.delete(note)
+    db.session.commit()
+    return redirect(url_for('watchnote'))
+
+
+@app.route('/watchnote', methods=['GET', 'POST'])
+def watchnote():
+    if request.method == 'POST':
+        note_title = request.form['title']
+        note_content = request.form['content']
+
+        if note_title.strip() and note_content.strip():
+            new_note = Note(title=note_title, content=note_content)
+            db.session.add(new_note)
+            db.session.commit()
+
+        return redirect(url_for('watchnote'))
+
+    notes = Note.query.order_by(Note.created.desc()).all()
+    return render_template('watchnotes.html', notes=notes)
+
+
+
 
 
 # main driver function
 if __name__ == '__main__':
-    # run() method of Flask class runs the application 
-    # on the local development server.
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
 
