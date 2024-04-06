@@ -7,13 +7,10 @@ import pandas as pd
 from youtube_transcript_api import YouTubeTranscriptApi
 import sys
 import re
-<<<<<<< HEAD
 
-=======
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from pytube import YouTube 
->>>>>>> 5d927f0757a7d654abeb9828f8f338818dbae3e4
 
 #function to create transcripts
 def transcripting(url):
@@ -82,7 +79,6 @@ def logout():
 # the associated function.
 @app.route('/')
 def index():
-<<<<<<< HEAD
     # return render_template('landing.html')
     return render_template('landing.html')
 
@@ -90,10 +86,8 @@ def index():
 def videolink():
     # return render_template('landing.html')
     return render_template('video_link.html')
-=======
     return render_template('landing.html')
  
->>>>>>> 5d927f0757a7d654abeb9828f8f338818dbae3e4
 
 @app.route('/signin')
 def signin():
@@ -176,8 +170,6 @@ def authorized():
         # Store user information as needed (e.g., in a database)
         # Example: email = user_info.data['email']
     
-    except Exception as e:
-        return 'error'
 
 
 @google.tokengetter
