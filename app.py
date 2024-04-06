@@ -177,6 +177,56 @@ def video_link_page():
         # to generate transcript and quiz
     return render_template('video_link.html')
 
+video_link = 'https://www.youtube.com/watch?v=NWONeJKn6kc'
+@app.route('/gennotes')
+
+def gennotes():
+    openai.organization = "org-VevTxB4XogkXjsvslr60Xacl"
+    openai.api_key = "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"
+
+    text = transcripting(
+        'https://www.youtube.com/watch?v=NWONeJKn6kc'
+        ) 
+    # sys.argv[1]
+    # "https://www.youtube.com/watch?v=ad79nYk2keg"
+     # https://www.youtube.com/watch?v=rRXaTyVzHz8
+
+    with open("t.txt", "w") as sys.stdout:
+        print(text)
+    cont = []
+    cont.append(text[:10000])
+    prompt = (
+        """Generate the full notes without summarizing which can be uses the important topics in the transcript so that students can learn easily. 
+
+    """
+        + cont[0]
+    )
+    # print(prompt)
+    model = "gpt-3.5-turbo-instruct"  # "gpt-3.5-turbo"
+    # response = openai.ChatCompletion.create(engine=model,prompt=prompt,max_tokens=500)
+    response = openai.Completion.create(engine=model, prompt=prompt, max_tokens=500)
+
+    generated_text = response.choices[0].text
+    with open("p.txt", "w") as sys.stdout:
+        print(prompt)
+    with open("notes.txt", "w") as sys.stdout:
+        print(generated_text)
+        
+    with open("notes.txt", "r+") as fp:
+        # read an store all lines into list
+        lines = fp.readlines()
+        # move file pointer to the beginning of a file
+        fp.seek(0)
+        # truncate the file
+        fp.truncate()
+
+        # start writing lines except the first line
+        # lines[1:] from line 2 to last line
+        fp.writelines(lines[2:])
+        parse_quiz(generated_text)
+        return generated_text
+    
+
 
 @app.route('/genquiz')
 def genquiz(video_link):
