@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,200,300,400,500,600,700,800,900" rel="stylesheet">
+
+    <title>INTELLEX</title>
+    
+    <!-- Bootstrap core CSS -->
+    <link href="../static/stylesheets/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Additional CSS Files -->
+    <!-- <link rel="stylesheet" href="assets/css/fontawesome.css"> -->
+    <link rel="stylesheet" href="../static/stylesheets/templatemo-grad-school.css">
+    <!-- <link rel="stylesheet" href="assets/css/owl.css">
+    <link rel="stylesheet" href="assets/css/lightbox.css"> -->
+<!--
+    
+TemplateMo 557 Grad School
+
+https://templatemo.com/tm-557-grad-school
+
+-->
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;700;800;900&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 80px 100px;
+  overflow: hidden;
+  background: #cfd1e1;
+}
+
+.box {
+  position: relative;
+  width: 240px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 100%;
+  background: linear-gradient(#fff, #fff, #e3e3e3);
+  filter: blur(1px);
+  z-index: 1;
+}
+
+.box::after {
+  content: '';
+  position: absolute;
+  top: 1px;
+  right: -1px;
+  width: 20px;
+  height: 100%;
+  background: #9d9d9d;
+  filter: blur(1px);
+  z-index: 1;
+}
+
+.box .shadow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #eee;
+}
+
+.box .shadow::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: calc(100% + 5px);
+  width: 100%;
+  height: 200%;
+  background: linear-gradient(rgba(0,0,0,0.075), transparent);
+  transform: skewX(45deg);
+}
+
+.box .shadow::after {
+  content: '';
+  position: absolute;
+  bottom: -200%;
+  left: calc(100% + 15px);
+  width: 100%;
+  height: 200%;
+  background: linear-gradient(rgba(0,0,0,0.075), transparent);
+  transform: skewX(45deg);
+}
+
+.box .content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(#dbdae1, #a3aaba);
+  box-shadow: 5px 5px 5px rgba(0,0,0,0.1),
+    15px 15px 15px rgba(0,0,0,0.1),
+    20px 20px 20px rgba(0,0,0,0.1),
+    50px 50px 50px rgba(0,0,0,0.1),
+    inset 3px 3px 2px #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.box .content .percent {
+  position: relative;
+  width: 150px;
+  height: 150px;
+}
+
+.box .content .percent::before {
+  content: attr(data-text);
+  position: absolute;
+  inset: 20px;
+  background: #555;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-size: 1.75rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+.box .content .percent svg {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  transform: rotate(270deg);
+}
+
+.box .content .percent svg circle {
+  width: 100%;
+  height: 100%;
+  fill: transparent;
+  stroke-width: 3;
+  stroke: rgba(0,0,0,0.05);
+  transform: translate(5px, 5px);
+}
+
+.box .content .percent svg circle:nth-child(2) {
+  stroke: #555;
+  stroke-dasharray: 440;
+  stroke-dashoffset: calc(440 - (440 * var(--num)) / 100);
+  opacity: 0;
+  animation: fadeIn 1s linear forwards;
+  animation-delay: 2.5s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.box .content .percent .dot {
+  position: absolute;
+  inset: 5px;
+  z-index: 10;
+  animation: animateDot 2s linear forwards;
+}
+
+@keyframes animateDot {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(calc(3.6deg * var(--num)));
+  }
+}
+
+.box .content .percent .dot::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: #555;
+  border-radius: 50%;
+}
+
+.box .content .number {
+  position: relative;
+  inset: 0;
+  opacity: 0;
+  animation: fadeIn 1s linear forwards;
+  animation-delay: 2.5s;
+}
+
+.box .content .number h2 {
+  font-size: 2.5rem;
+  color: #555;
+}
+
+.box .content .number h2 span {
+  font-weight: 300;
+  font-size: 1.5rem;
+}
+  </style>
+  </head>
+
+<body>
+
+   
+  <!--header-->
+  <header class="main-header clearfix" role="header">
+    <div class="logo">
+      <a href="#">INTE<em>LLEX</em></a>
+    </div>
+    <a href="#menu" class="menu-link"><i class="fa fa-bars"></i></a>
+    <nav id="menu" class="main-nav" role="navigation">
+      <ul class="main-menu">
+        <li><a href="#section1">Home</a></li>
+        <li class="has-submenu"><a href="#section2">---</a>
+          <ul class="sub-menu">
+            <li><a href="#section2">-</a></li>
+            <li><a href="#section3">-</a></li>
+            <li><a href="#section3"class="external">-</a></li>
+          </ul>
+        </li>
+        <li><a href="{{url_for('videolinkq')}}">MCQs</a>
+          
+        </li>
+        <!-- <li><a href="#section5">Video</a></li> -->
+        <li class="has-submenu"><a class="external">Login</a>
+          <ul class="sub-menu">
+            <li><a href="{{url_for('login')}}">Professor</a></li>
+            <li><a href="{{url_for('login_stud')}}">Student</a></li>
+          </ul>
+        </li>
+        <li><a href="takeattendance.html" class="external">Check Attendance</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- ***** Main Banner Area Start ***** -->
+  
+<section>
+  <div class="container">
+    <div class="box">
+      <div class="shadow"></div>
+      <div class="content">
+        <div class="percent" data-text="IoT" style="--num: 85">
+          <div class="dot"></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+          </svg>
+        </div>
+        <div class="number">
+          <h2>85<span>%</span></h2>
+        </div>
+      </div>
+    </div>
+  
+    <div class="box">
+      <div class="shadow"></div>
+      <div class="content">
+        <div class="percent" data-text="DBMS" style="--num: 57">
+          <div class="dot"></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+          </svg>
+        </div>
+        <div class="number">
+          <h2>57<span>%</span></h2>
+        </div>
+      </div>
+    </div>
+  
+    <div class="box">
+      <div class="shadow"></div>
+      <div class="content">
+        <div class="percent" data-text="ATC" style="--num: 30">
+          <div class="dot"></div>
+          <svg>
+            <circle cx="70" cy="70" r="70"></circle>
+            <circle cx="70" cy="70" r="70"></circle>
+          </svg>
+        </div>
+        <div class="number">
+          <h2>30<span>%</span></h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Scripts -->
+  <!-- Bootstrap core JavaScript -->
+    <!-- <script src="vendor/jquery/jquery.min.js"></script> -->
+    <!-- <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>  -->
+
+    <!-- <script src="../static/js/isotope.min.js"></script> -->
+    <!-- <script src="../static/js/owl-carousel.js"></script> -->
+    <!-- <script src="../static/js/video.js"></script> -->
+    <!-- <script src="../static/js/lightbox.js"></script> -->
+    <!-- <script src="../static/js/tabs.js"></script> -->
+    <!-- <script src="../static/js/slick-slider.js"></script> -->
+    <!-- <script src="../static/js/custom.js"></script> -->
+    <script>
+        //according to loftblog tut
+        $('.nav li:first').addClass('active');
+
+        var showSection = function showSection(section, isAnimate) {
+          var
+          direction = section.replace(/#/, ''),
+          reqSection = $('.section').filter('[data-section="' + direction + '"]'),
+          reqSectionPos = reqSection.offset().top - 0;
+
+          if (isAnimate) {
+            $('body, html').animate({
+              scrollTop: reqSectionPos },
+            800);
+          } else {
+            $('body, html').scrollTop(reqSectionPos);
+          }
+
+        };
+
+        var checkSection = function checkSection() {
+          $('.section').each(function () {
+            var
+            $this = $(this),
+            topEdge = $this.offset().top - 80,
+            bottomEdge = topEdge + $this.height(),
+            wScroll = $(window).scrollTop();
+            if (topEdge < wScroll && bottomEdge > wScroll) {
+              var
+              currentId = $this.data('section'),
+              reqLink = $('a').filter('[href*=\\#' + currentId + ']');
+              reqLink.closest('li').addClass('active').
+              siblings().removeClass('active');
+            }
+          });
+        };
+
+        $('.main-menu, .scroll-to-section').on('click', 'a', function (e) {
+          if($(e.target).hasClass('external')) {
+            return;
+          }
+          e.preventDefault();
+          $('#menu').removeClass('active');
+          showSection($(this).attr('href'), true);
+        });
+
+        $(window).scroll(function () {
+          checkSection();
+        });
+    </script>
+</body>
+</html>
